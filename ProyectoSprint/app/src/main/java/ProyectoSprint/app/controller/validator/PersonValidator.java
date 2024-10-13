@@ -1,10 +1,17 @@
-package app.controller.validator;
+package ProyectoSprint.app.controller.validator;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Component
+@NoArgsConstructor
+@Getter
+@Setter
 public class PersonValidator extends CommonsValidator{
 	
-	public PersonValidator() {
-		super();
-	}
+	
 	public void validName(String name) throws Exception{
 		super.isValidString("El nombre de la persona", name);
 	}

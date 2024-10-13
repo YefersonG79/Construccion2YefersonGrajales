@@ -1,6 +1,6 @@
-package app.dao.interfaces;
+package ProyectoSprint.app.dao.interfaces;
 
-import app.dto.PersonDto;
+import ProyectoSprint.app.dto.PersonDto;
 
 
 public interface PersonDao{

@@ -1,4 +1,4 @@
-package app.controller;
+package ProyectoSprint.app.controller;
 
 import java.util.Scanner;
 

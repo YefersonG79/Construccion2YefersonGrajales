@@ -1,67 +1,48 @@
-package app.dao;
+package ProyectoSprint.app.dao;
 
+import ProyectoSprint.app.dao.repositories.PersonRepository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import app.config.MYSQLConnection;
-import app.dao.interfaces.PersonDao;
-import app.dto.PersonDto;
-import app.helpers.Helper;
-import app.model.Person;
+import ProyectoSprint.app.dao.interfaces.PersonDao;
+import ProyectoSprint.app.dto.PersonDto;
+import ProyectoSprint.app.helpers.Helper;
+import ProyectoSprint.app.model.Person;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+@NoArgsConstructor
+@Getter
+@Setter
 public class PersonDaoImplementation implements PersonDao {
+    
+    @Autowired
+    PersonRepository personRepository;
     @Override
     public boolean existsByDocument(PersonDto personDto) throws Exception{
-        String query = "SELECT FROM PERSON WHERE DOCUMENT = ?";
-        PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-        preparedStatement.setLong(1, personDto.getDocument());
-        ResultSet resultSet = preparedStatement.executeQuery();
-        boolean exists = resultSet.next();
-        resultSet.close();
-        return exists;
+        return personRepository.existsByDocument(Helper.parse(personDto).getDocument());
     }
 
     @Override
     public void createPerson(PersonDto personDto) throws Exception{
         Person person = Helper.parse(personDto);
-        String query = "INSERT INTO PERSON(NAME, DOCUMENT, CELLNUMBER) VALUES (?,?,?)";
-        PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-        preparedStatement.setString(1, person.getName());
-        preparedStatement.setLong(2, person.getDocument());
-        preparedStatement.setLong(3, person.getPhoneNumber());
-        preparedStatement.execute();
-        preparedStatement.close();
+        personRepository.save(person);
+        personDto.setId(person.getId());
     }
 
     @Override
     public void deletePerson(PersonDto personDto) throws Exception{
         Person person = Helper.parse(personDto);
-        String query = "DELETE FROM PERSON WHERE DOCUMENT = ?";
-        PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-        preparedStatement.setLong(1, person.getDocument());
-        preparedStatement.execute();
-        preparedStatement.close();
+        personRepository.delete(person);
     }
 
     @Override
     public PersonDto findByDocument(PersonDto personDto) throws Exception{
-        String query = "SELECT ID, NAME, DOCUMENT, CELLNUMBER FROM PERSON WHERE DOCUMENT = ?";
-        PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
-        preparedStatement.setLong(1, personDto.getDocument());
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()){
-            Person person = new Person();
-            person.setId(resultSet.getLong("ID"));
-            person.setName(resultSet.getString("NAME"));
-            person.setDocument(resultSet.getLong("DOCUMENT"));
-            person.setPhoneNumbre(resultSet.getLong("CELLNUMBER"));
-            resultSet.close();
-            preparedStatement.close();
-            return Helper.parse(person);
-        }
-
-        resultSet.close();
-        preparedStatement.close();
-        return null;
+        Person person = personRepository.findByDocument(personDto.getDocument());
+        return Helper.parse(person);
     }
 }

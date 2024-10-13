@@ -1,28 +1,31 @@
-package app.controller;
+package ProyectoSprint.app.controller;
 
 import java.util.Map;
 import java.util.HashMap;
 
 
-import app.controller.validator.UserValidator;
-import app.dto.UserDto;
-import app.service.Service;
-import app.service.interfaces.LoginService;
+import ProyectoSprint.app.controller.validator.UserValidator;
+import ProyectoSprint.app.dto.UserDto;
+import ProyectoSprint.app.service.ClubService;
+import ProyectoSprint.app.service.interfaces.LoginService;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-
+@Controller
+@Getter
+@Setter
 public class LoginController implements ControllerInterface {
 
+    @Autowired
 	private UserValidator userValidator;
+    @Autowired
 	private LoginService service;
 	private static final String MENU= "ingrese la opcion que desea: \n 1. para iniciar sesion. \n 2. para detener la ejecucion.";
 	private Map<String,ControllerInterface>roles;
 	
-	public LoginController() {
-		this.userValidator= new UserValidator();
-		this.service= new Service();
-		ControllerInterface adminController = new AdminController();
-		ControllerInterface partherController = new PartherController();
-		//ControllerInterface guestController = new GuestController();
+	public LoginController(AdminController adminController, PartherController partherController) {
 		this.roles= new HashMap<String,ControllerInterface>();
 		roles.put("admin", adminController);
 		roles.put("socio", partherController);

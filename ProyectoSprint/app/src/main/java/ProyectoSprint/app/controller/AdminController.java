@@ -1,28 +1,36 @@
-package app.controller;
+package ProyectoSprint.app.controller;
 
 import java.sql.Date;
 
-import app.controller.validator.PersonValidator;
-import app.controller.validator.UserValidator;
-import app.dto.PartherDto;
-import app.dto.PersonDto;
-import app.dto.UserDto;
-import app.service.Service;
-import app.service.interfaces.AdminService;
+import ProyectoSprint.app.controller.validator.PersonValidator;
+import ProyectoSprint.app.controller.validator.UserValidator;
+import ProyectoSprint.app.dto.PartherDto;
+import ProyectoSprint.app.dto.PersonDto;
+import ProyectoSprint.app.dto.UserDto;
+import ProyectoSprint.app.service.ClubService;
+import ProyectoSprint.app.service.interfaces.AdminService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 
+@Controller
+@NoArgsConstructor
+@Getter
+@Setter
 public class AdminController implements ControllerInterface {
-	private PersonValidator personValidator;
+	
+    @Autowired
+        private PersonValidator personValidator;
+    @Autowired
 	private UserValidator userValidator;
+    @Autowired
 	private AdminService service;
 	
-	private static final String MENU ="ingrese la opcion que desea \n 1.Crear socio \n 2. Visualizar facturas  \n 3. Promocion VIP \n  4. Cerrar sesion";
+	private static final String MENU ="ingrese la opcion que desea \n 1.Crear socio \n 2. Visualizar facturas  \n 3. Promocion VIP \n  4. Cerrar sesion \n";
 
-	public AdminController() {
-		this.personValidator = new PersonValidator();
-		this.userValidator = new UserValidator();
-		this.service = new Service();
-	}
 	@Override
 	public void session() throws Exception {
 		boolean session = true;
@@ -86,19 +94,23 @@ public class AdminController implements ControllerInterface {
 		PersonDto personDto = new PersonDto();
 		personDto.setName(name);
 		personDto.setDocument(document);
-        personDto.setPhoneNumbre(phoneNumber);
+        personDto.setPhoneNumber(phoneNumber);
 		
 		UserDto userDto= new UserDto();
 		userDto.setRole("parther");
 		userDto.setPassword(password);
 		userDto.setName(userName);
 	
-		userDto.setPersonid(personDto);
+		userDto.setPersonId(personDto);
 		PartherDto partherDto = new PartherDto();
 		partherDto.setMembersphipDate(new Date(System.currentTimeMillis()));
 		partherDto.setUserId(userDto);
 		partherDto.setAvailableFunds(50000);
 		partherDto.setSubscriptionType("Regular");	
+                
+               this.service.createParther(partherDto);
+               System.out.println("se ha creado el usuario exitosamente");
+            
 	}
 
 }

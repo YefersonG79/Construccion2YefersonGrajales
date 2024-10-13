@@ -1,18 +1,34 @@
-package app.controller;
+package ProyectoSprint.app.controller;
 
-import app.controller.validator.InvoiceValidator;
-import app.controller.validator.PersonValidator;
-import app.controller.validator.UserValidator;
-import app.dto.GuestDto;
-import app.dto.InvoiceDto;
-import app.dto.PersonDto;
-import app.dto.UserDto;
+import ProyectoSprint.app.controller.validator.InvoiceValidator;
+import ProyectoSprint.app.controller.validator.PersonValidator;
+import ProyectoSprint.app.controller.validator.UserValidator;
+import ProyectoSprint.app.dto.GuestDto;
+import ProyectoSprint.app.dto.InvoiceDetailsDto;
+import ProyectoSprint.app.dto.InvoiceDto;
+import ProyectoSprint.app.dto.PersonDto;
+import ProyectoSprint.app.dto.UserDto;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 
-
+@Controller
+@NoArgsConstructor
+@Getter
+@Setter
 public class PartherController implements ControllerInterface{
-	private PersonValidator personValidator;
+	
+    @Autowired
+        private PersonValidator personValidator;
+    @Autowired
 	private UserValidator userValidator;
+    @Autowired
 	private InvoiceValidator invoiceValidator;
 	
 	
@@ -20,11 +36,6 @@ public class PartherController implements ControllerInterface{
 	
 	private static final String MENU= "ingrese la opcion que desea \n 1.Para consultar e incrementar fondos  \n 2. Para realizar pedidos\n 3. Para crear invitados \n 4. Desactivar invitados \n 5.cerrar sesion ";
 	//private static final String MENU2= "Ingrese la opcion que desea \n 1. Para consultar fondos \n 2. Para incremento de fondos \n 3. Para volver al menu principal";
-	public PartherController() {
-		this.personValidator= new PersonValidator();
-		this.userValidator = new UserValidator();
-		this.invoiceValidator= new InvoiceValidator();
-	}
 	
 	@Override 
 	public void session() throws Exception {
@@ -136,5 +147,7 @@ public class PartherController implements ControllerInterface{
 		}
 		}
 	}
+        
+
+    }
 		
-}

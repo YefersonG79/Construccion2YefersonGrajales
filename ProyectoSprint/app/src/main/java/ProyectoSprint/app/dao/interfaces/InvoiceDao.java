@@ -1,3 +1,3 @@
-package app.dao.interfaces;
+package ProyectoSprint.app.dao.interfaces;
 
 public interface InvoiceDao{}

@@ -1,6 +1,6 @@
-package app.dao.interfaces;
+package ProyectoSprint.app.dao.interfaces;
 
-import app.dto.UserDto;
+import ProyectoSprint.app.dto.UserDto;
 
 public interface UserDao{
     public UserDto findByUserName(UserDto userDto)throws Exception;

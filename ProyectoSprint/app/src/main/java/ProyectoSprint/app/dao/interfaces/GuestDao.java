@@ -1,6 +1,6 @@
-package app.dao.interfaces;
+package ProyectoSprint.app.dao.interfaces;
 
-import app.dto.GuestDto;
+import ProyectoSprint.app.dto.GuestDto;
 
 public interface GuestDao{
     public void createGuest(GuestDto guestDto)throws Exception;

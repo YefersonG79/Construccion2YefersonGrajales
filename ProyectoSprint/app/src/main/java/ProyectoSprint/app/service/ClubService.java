@@ -1,44 +1,47 @@
-package app.service;
+package ProyectoSprint.app.service;
 
 import java.sql.SQLException;
 
-import app.dao.GuestDaoImplementation;
-import app.dao.PartherDaoImplementation;
-import app.dao.PersonDaoImplementation;
-import app.dao.UserDaoImplementation;
-import app.dao.interfaces.GuestDao;
-import app.dao.interfaces.InvoiceDao;
-import app.dao.interfaces.PartherDao;
-import app.dao.interfaces.PersonDao;
-import app.dao.interfaces.UserDao;
-import app.dto.GuestDto;
-import app.dto.InvoiceDto;
-import app.dto.PartherDto;
-import app.dto.PersonDto;
-import app.dto.UserDto;
-import app.service.interfaces.AdminService;
-import app.service.interfaces.LoginService;
-import app.service.interfaces.PartherService;
+import ProyectoSprint.app.dao.GuestDaoImplementation;
+import ProyectoSprint.app.dao.PartherDaoImplementation;
+import ProyectoSprint.app.dao.PersonDaoImplementation;
+import ProyectoSprint.app.dao.UserDaoImplementation;
+import ProyectoSprint.app.dao.interfaces.GuestDao;
+import ProyectoSprint.app.dao.interfaces.InvoiceDao;
+import ProyectoSprint.app.dao.interfaces.PartherDao;
+import ProyectoSprint.app.dao.interfaces.PersonDao;
+import ProyectoSprint.app.dao.interfaces.UserDao;
+import ProyectoSprint.app.dto.GuestDto;
+import ProyectoSprint.app.dto.InvoiceDto;
+import ProyectoSprint.app.dto.PartherDto;
+import ProyectoSprint.app.dto.PersonDto;
+import ProyectoSprint.app.dto.UserDto;
+import ProyectoSprint.app.service.interfaces.AdminService;
+import ProyectoSprint.app.service.interfaces.LoginService;
+import ProyectoSprint.app.service.interfaces.PartherService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class Service implements LoginService,AdminService,PartherService{
+
+@Service
+@NoArgsConstructor
+@Getter
+@Setter
+public class ClubService implements LoginService,AdminService,PartherService{
 	
+    @Autowired
 	private UserDao userDao;
+    @Autowired
 	private PersonDao personDao;
 	private InvoiceDao invoiceDao;
 	private static UserDto user;
 	private PartherDao partherDao;
 	private GuestDao guestDao;
 	
-	
-	public Service() {
-		this.userDao= new UserDaoImplementation();
-		this.personDao= new PersonDaoImplementation();
-		this.guestDao= new GuestDaoImplementation();
-		this.partherDao= new PartherDaoImplementation();
 		
-		
-	}
-	
 	@Override
 	public void createGuest(GuestDto guestDto) throws Exception {
 		this.createUser(guestDto.getUserId());
@@ -67,8 +70,16 @@ public class Service implements LoginService,AdminService,PartherService{
 	}
 	private void createUser(UserDto userDto) throws Exception{
 		this.createPerson(userDto.getPersonId());
-		userDto.setPersonid(personDao.findByDocument(userDto.getPersonId()));
-		this.userDao.createUser(userDto);
+                if(this.userDao.existsByUserName(userDto)){
+                    this.personDao.deletePerson(userDto.getPersonId());
+                    throw new Exception("Ya existe un usuario con ese username");
+                }
+                try{
+                    this.userDao.createUser(userDto);
+                }catch (SQLException e){
+                    this.personDao.deletePerson(userDto.getPersonId());
+                }
+		
 
 	}
 

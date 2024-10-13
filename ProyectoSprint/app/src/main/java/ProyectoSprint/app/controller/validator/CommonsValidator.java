@@ -1,5 +1,14 @@
-package app.controller.validator;
+package ProyectoSprint.app.controller.validator;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Component
+@NoArgsConstructor
+@Getter
+@Setter
 public abstract class CommonsValidator {
 	public void isValidString(String element, String value) throws Exception {
 		if (value.equals("")) {

@@ -1,7 +1,7 @@
-package app.service.interfaces;
+package ProyectoSprint.app.service.interfaces;
 
-import app.dto.GuestDto;
-import app.dto.InvoiceDto;
+import ProyectoSprint.app.dto.GuestDto;
+import ProyectoSprint.app.dto.InvoiceDto;
 
 public interface PartherService {
 	public void createGuest(GuestDto guestDto) throws Exception;

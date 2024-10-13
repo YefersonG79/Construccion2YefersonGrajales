@@ -14,10 +14,12 @@ import app.dao.interfaces.UserDao;
 import app.dto.GuestDto;
 import app.dto.InvoiceDto;
 import app.dto.PartherDto;
+import app.dto.PersonDto;
 import app.dto.UserDto;
 import app.service.interfaces.AdminService;
 import app.service.interfaces.LoginService;
 import app.service.interfaces.PartherService;
+
 public class Service implements LoginService,AdminService,PartherService{
 	
 	private UserDao userDao;
@@ -39,7 +41,10 @@ public class Service implements LoginService,AdminService,PartherService{
 	
 	@Override
 	public void createGuest(GuestDto guestDto) throws Exception {
-		this.createGuest(guestDto);
+		this.createUser(guestDto.getUserId());
+		PartherDto partherDto = partherDao.findByPartherId(user);
+		
+		//seguir logica
 	}
 
 	@Override
@@ -49,7 +54,7 @@ public class Service implements LoginService,AdminService,PartherService{
 
 	@Override
 	public void createParther(PartherDto partherDto) throws Exception{
-		this.userDao.createUser(partherDto.getUserId());
+		this.createUser(partherDto.getUserId());
 		UserDto userDto= userDao.findByUserName(partherDto.getUserId());
 		partherDto.setUserId(userDto);
 		try {
@@ -59,6 +64,16 @@ public class Service implements LoginService,AdminService,PartherService{
 			this.personDao.deletePerson(userDto.getPersonId());
 			throw new Exception ("No se puedo crear el socio");
 		}
+	}
+	private void createUser(UserDto userDto) throws Exception{
+		this.createPerson(userDto.getPersonId());
+		userDto.setPersonid(personDao.findByDocument(userDto.getPersonId()));
+		this.userDao.createUser(userDto);
+
+	}
+
+	private void createPerson(PersonDto personDto)throws Exception{
+		this.personDao.createPerson(personDto);
 	}
 
 	@Override

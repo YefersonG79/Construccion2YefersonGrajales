@@ -1,64 +1,37 @@
-package app.model;
+package ProyectoSprint.app.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.sql.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@Table(name="partner")
+@Setter
+@Getter
+@NoArgsConstructor
 public class Parther {
+        @Id
+        @Column(name="id")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private Person personId;
+        //No exite en la DB personId en la tabla Partner entonces para que se puso????????????¡
+        @OneToOne
+        @JoinColumn(name="userid")
 	private User userId;
+        @Column(name="amount")
 	private long availableFunds;
+        @Column(name="type")
 	private String subscriptionType;
+        @Column(name="creationdate")
 	private Date membersphipDate;
-	
-	public Parther() {}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Person getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(Person personId) {
-		this.personId = personId;
-	}
-
-	public User getUserId() {
-		return userId;
-	}
-
-	public void setUserId(User userId) {
-		this.userId = userId;
-	}
-
-	public long getAvailableFunds() {
-		return availableFunds;
-	}
-
-	public void setAvailableFunds(long availableFunds) {
-		this.availableFunds = availableFunds;
-	}
-
-	public String getSubscriptionType() {
-		return subscriptionType;
-	}
-
-	public void setSubscriptionType(String subscriptionType) {
-		this.subscriptionType = subscriptionType;
-	}
-
-	public Date getMembersphipDate() {
-		return membersphipDate;
-	}
-
-	public void setMembersphipDate(Date membersphipDate) {
-		this.membersphipDate = membersphipDate;
-	}
-
 	
 }

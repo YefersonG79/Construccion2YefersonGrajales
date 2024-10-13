@@ -1,6 +1,6 @@
-package app.service.interfaces;
+package ProyectoSprint.app.service.interfaces;
 
-import app.dto.PartherDto;
+import ProyectoSprint.app.dto.PartherDto;
 
 public interface AdminService {
 	public void createParther(PartherDto partherDto) throws Exception;
