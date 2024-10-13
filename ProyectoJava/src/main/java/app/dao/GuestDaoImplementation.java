@@ -21,7 +21,7 @@ public class GuestDaoImplementation implements GuestDao{
         preparedStatement.setBoolean(3, guest.getGuestStatus());
         preparedStatement.execute();
         preparedStatement.close();
-    }
+    }	
 
     @Override
     public boolean existById(GuestDto guestDto) throws Exception {
@@ -46,7 +46,7 @@ public class GuestDaoImplementation implements GuestDao{
 	}
 
     @Override
-    public GuestDto findById(GuestDto guestDto) throws Exception{
+    public GuestDto findByGuestId(GuestDto guestDto) throws Exception{
         String query = "SELECT ID,USERID,PARTHERID,STATUS FROM GUEST WHERE USERID =?";
 		PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
 		preparedStatement.setLong(1, guestDto.getId());

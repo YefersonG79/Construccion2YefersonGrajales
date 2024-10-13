@@ -1,7 +1,7 @@
-package app.dao.interfaces;
+package ProyectoSprint.app.dao.interfaces;
 
-import app.dto.PartherDto;
-import app.dto.UserDto;
+import ProyectoSprint.app.dto.PartherDto;
+import ProyectoSprint.app.dto.UserDto;
 
 public interface PartherDao{
     public void createrParther(PartherDto partherDto) throws Exception;

@@ -26,7 +26,7 @@ public class PartherDaoImplementation implements PartherDao{
     }
 
     @Override
-    public PartherDto existById(UserDto userDto) throws Exception{
+    public PartherDto findByPartherId (UserDto userDto) throws Exception{
         String query = "SELECT ID, USERID, AMOUNT, TYPE, CREATIONDATE FROM PARTHER WHERE USERID = ?";
         PreparedStatement preparedStatement = MYSQLConnection.getConnection().prepareStatement(query);
         preparedStatement.setLong(1, userDto.getId());
