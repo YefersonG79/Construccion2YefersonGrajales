@@ -1,20 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package ProyectoSprint.app.dao.repositories;
 
 import ProyectoSprint.app.model.Guest;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author HP 14 CM
- */
-public interface GuestRepository extends JpaRepository<Guest,Long>{
 
-    public boolean existsById(long id);
+@Repository
+public interface GuestRepository extends JpaRepository <Guest, Long>{
 
-    public Guest findById(long id);
+    public boolean existsById(Long id);
+    Optional<Guest> findById(Long guestId);
     
 }

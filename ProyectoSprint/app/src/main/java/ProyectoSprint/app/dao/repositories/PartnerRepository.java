@@ -1,18 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package ProyectoSprint.app.dao.repositories;
 
-import ProyectoSprint.app.model.Parther;
+import ProyectoSprint.app.model.Partner;
+import ProyectoSprint.app.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author HP 14 CM
- */
-public interface PartnerRepository extends JpaRepository<Parther,Long>{
 
-    public Parther findById(long id);
+@Repository
+public interface PartnerRepository extends JpaRepository <Partner, Long> {
+
+    public Partner findByid(Long id);
+    public boolean existsById(Long id);
+    public Partner findByUserId(User user);
+    public Partner findByMoney(double monto);
     
+    @Modifying
+    @Transactional
+    @Query("UPDATE Partner p SET p.money = :money WHERE p.userId.id = :userId")
+    void updateMoneyByUserId(@Param("money") Double monto, @Param("userId") Long userId);
+  
 }

@@ -1,39 +1,47 @@
+
 package ProyectoSprint.app.dao;
 
-import ProyectoSprint.app.dao.repositories.GuestRepository;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
-import ProyectoSprint.app.dao.interfaces.GuestDao;
 import ProyectoSprint.app.dto.GuestDto;
-import ProyectoSprint.app.helpers.Helper;
+import ProyectoSprint.app.helpers.Helpers;
 import ProyectoSprint.app.model.Guest;
-import ProyectoSprint.app.model.User;
+import ProyectoSprint.app.dao.interfaces.GuestDao;
+import ProyectoSprint.app.dao.repositories.GuestRepository;
+import java.util.Optional;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class GuestDaoImplementation implements GuestDao{
+@Service
+@Getter
+@Setter
+@NoArgsConstructor
+public class Guestdaoimplementation  implements GuestDao{
+    @Autowired
+    GuestRepository guestrepository;
     
-    GuestRepository guestRepository;
     @Override
-    public void createGuest(GuestDto guestDto)throws Exception{
-        Guest guest = Helper.parse(guestDto);
-        guestRepository.save(guest);
-    }	
-
-    @Override
-    public boolean existById(GuestDto guestDto) throws Exception {
-	return guestRepository.existsById(guestDto.getId());
+     public boolean existsById(GuestDto GuestDto) throws Exception {
+         return guestrepository.existsById(GuestDto.getId());
+                
 	}
-	
     @Override
-	public void deleteGuest (GuestDto guestDto) throws Exception{
-		Guest guest = Helper.parse(guestDto);
-		guestRepository.delete(guest);
+      public void createGuest(GuestDto GuestDto) throws Exception {	
+	Guest guest = Helpers.parse(GuestDto);
+        guestrepository.save(guest);
+        GuestDto.setId(guest.getId());
 	}
-
-    @Override
-    public GuestDto findByGuestId(GuestDto guestDto) throws Exception{
-        Guest guest = guestRepository.findById(guestDto.getId());
-        return Helper.parse(guest);
-    }
-	
+      @Override
+     public GuestDto getGuestById(long guestId) throws Exception{
+         Optional<Guest> optionalGuest = guestrepository.findById(guestId);
+               return Helpers.parse(optionalGuest.get());
+             
+     }
+     
+     public void ActivateStatus(GuestDto guestDto) throws Exception{
+         Guest  guest= Helpers.parse(guestDto);
+         guestrepository.save(guest);
+     }
 }

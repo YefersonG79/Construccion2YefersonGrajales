@@ -1,3 +1,7 @@
 package ProyectoSprint.app.dao.interfaces;
 
-public interface InvoiceDao{}
+import ProyectoSprint.app.model.invoice;
+
+public interface invoiceDao {
+    public void createInvoice(invoice invoice) throws Exception;
+}

@@ -1,5 +1,5 @@
-
 package ProyectoSprint.app.dto;
+
 import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class invoiceDto {
+public class PartnerDto {
     private long id;
-    private PersonDto person;
-    private PartnerDto partner;
-     private Timestamp dateCreate;
-    private double amount;
-    private String Status;
+    private UserDto userId;
+    private double money;
+    private String type;
+    private Timestamp datecreated;
+    
 }

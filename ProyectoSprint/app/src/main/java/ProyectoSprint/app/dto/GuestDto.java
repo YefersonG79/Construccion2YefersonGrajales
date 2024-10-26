@@ -1,3 +1,4 @@
+
 package ProyectoSprint.app.dto;
 
 import ProyectoSprint.app.dto.UserDto;
@@ -10,9 +11,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class GuestDto {
-	private long id;
-	private UserDto userId;
-	private PartherDto partherId;
-	private Boolean guestStatus;
-	
+    private long id;
+    private UserDto user;
+    private PartnerDto Partner;
+    private String Status;    
 }

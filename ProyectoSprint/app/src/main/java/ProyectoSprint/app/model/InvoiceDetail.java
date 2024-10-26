@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package ProyectoSprint.app.model;
 
 import jakarta.persistence.Column;
@@ -16,28 +13,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- *
- * @author HP 14 CM
- */
-@Entity
-@Table(name="invoicedetail")
-@NoArgsConstructor
 @Getter
 @Setter
-public class InvoiceDetails {
+@NoArgsConstructor
+@Entity 
+@Table(name="invoicedetail")
+public class InvoiceDetail {
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private long id;
     @ManyToOne
-    @JoinColumn(name="invoiceid")
-    private Invoice invoiceId;
-    @Column(name="item")
+    @JoinColumn(name = "invoiceid") 
+    private invoice invoiceid;
+    @Column(name= "item")
     private int item;
-    @Column(name="description")
+    @Column(name= "description")
     private String description;
-    @Column(name="amount")
+    @Column(name= "amount")
     private double amount;
-    
+
+ 
 }
