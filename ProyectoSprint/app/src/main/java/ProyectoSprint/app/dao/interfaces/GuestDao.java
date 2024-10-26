@@ -2,9 +2,9 @@ package ProyectoSprint.app.dao.interfaces;
 
 import ProyectoSprint.app.dto.GuestDto;
 
-public interface GuestDao{
-    public void createGuest(GuestDto guestDto)throws Exception;
-    public boolean existById(GuestDto guesDto) throws Exception;
-    public void deleteGuest(GuestDto guestDto) throws Exception;
-    public GuestDto findByGuestId(GuestDto guestDto) throws Exception;
+public interface GuestDao {
+   public boolean existsById(GuestDto GuestDto) throws Exception;
+   public void createGuest(GuestDto GuestDto) throws Exception;
+   public GuestDto getGuestById(long guestId) throws Exception;
+   public void ActivateStatus(GuestDto guestDto) throws Exception;
 }

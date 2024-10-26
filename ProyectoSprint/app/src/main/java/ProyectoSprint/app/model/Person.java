@@ -10,20 +10,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity 
 @Table(name="person")
-public class Person{
+public class Person {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id") 
     private long id;
-    @Column(name="document")
-    private long document;
+    @Column(name= "document")
+    private long cedula;
     @Column(name="name")
     private String name;
     @Column(name="cellphone")
-    private long phoneNumber;
+    private long Cellphone;
+
 }
